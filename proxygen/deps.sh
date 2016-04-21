@@ -87,48 +87,6 @@ then
 	fi
 fi
 
-
-# Get folly
-if [ ! -e folly/folly ]; then
-    echo "Cloning folly"
-    git clone https://github.com/facebook/folly
-fi
-cd folly/folly
-git fetch
-git checkout master
-
-# Build folly
-autoreconf --install
-./configure
-make -j$JOBS
-sudo make install
-
-if test $? -ne 0; then
-	echo "fatal: folly build failed"
-	exit -1
-fi
-cd ../..
-
-# Get wangle
-if [ ! -e wangle/wangle ]; then
-    echo "Cloning wangle"
-    git clone https://github.com/facebook/wangle
-fi
-cd wangle/wangle
-git fetch
-git checkout master
-
-# Build wangle
-cmake .
-make -j$JOBS
-sudo make install
-
-if test $? -ne 0; then
-	echo "fatal: wangle build failed"
-	exit -1
-fi
-cd ../..
-
 # Build proxygen
 autoreconf -ivf
 ./configure
