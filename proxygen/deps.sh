@@ -89,7 +89,7 @@ fi
 
 # Build proxygen
 autoreconf -ivf
-./configure
+./configure --prefix=/usr/
 make -j$JOBS
 
 # Run tests
